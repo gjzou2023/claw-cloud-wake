@@ -55,7 +55,7 @@ async function getCodespaceStatus() {
  * 启动 Codespace
  */
 async function startCodespace() {
-    return await runGhCommand(`gh codespace start -c ${CODESPACE_NAME}`);
+    return await runGhCommand(`gh api --method POST "/user/codespaces/${CODESPACE_NAME}/start"`);
 }
 
 /**
