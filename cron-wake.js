@@ -36,10 +36,11 @@ async function main() {
     if (status === 'Shutdown' || status === 'Stopped') {
         console.log('Codespace 已停止，执行唤醒...');
         
-        const startResult = await runGhCommand(`gh codespace start -c ${CODESPACE_NAME}`);
+        // FIX: 使用 GitHub REST API 代替不存在的 gh codespace start 命令
+        const startResult = await runGhCommand(`gh api --method POST "/user/codespaces/${CODESPACE_NAME}/start"`);
         
         if (startResult.success) {
-            const startResult = await runGhCommand(`gh api --method POST "/user/codespaces/${CODESPACE_NAME}/start"`);
+            console.log('✅ 唤醒成功');
             process.exit(0);
         } else {
             console.error('❌ 唤醒失败:', startResult.error);
