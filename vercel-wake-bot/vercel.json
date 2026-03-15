@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "functions": {
+    "api/webhook.js": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "TELEGRAM_BOT_TOKEN": "@telegram-bot-token",
+    "CODESPACE_NAME": "@codespace-name",
+    "GH_TOKEN": "@gh-token",
+    "ALLOWED_USERS": "@allowed-users"
+  }
+}
