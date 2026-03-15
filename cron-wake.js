@@ -39,7 +39,7 @@ async function main() {
         const startResult = await runGhCommand(`gh codespace start -c ${CODESPACE_NAME}`);
         
         if (startResult.success) {
-            console.log('✅ 唤醒成功');
+            const startResult = await runGhCommand(`gh api --method POST "/user/codespaces/${CODESPACE_NAME}/start"`);
             process.exit(0);
         } else {
             console.error('❌ 唤醒失败:', startResult.error);
