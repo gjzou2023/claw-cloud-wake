@@ -1,21 +1,15 @@
 {
-  "name": "claw-cloud-wakeup-bot",
+  "name": "claw-cloud-wake",
   "version": "1.0.0",
-  "description": "Telegram Bot for waking up GitHub Codespace with OpenClaw",
+  "description": "OpenClaw一键唤醒服务 - Claw Cloud版本",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "web": "node web.js",
+    "cron": "node cron-wake.js"
   },
-  "keywords": [
-    "telegram",
-    "bot",
-    "codespace",
-    "openclaw"
-  ],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
-    "node-telegram-bot-api": "^0.63.0"
+    "node-telegram-bot-api": "^0.64.0",
+    "express": "^4.18.2"
   }
 }

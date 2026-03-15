@@ -1,20 +1,21 @@
 FROM node:20-alpine
 
-# ========== 版本 v2.0 - 2026-03-15 ==========
-LABEL version="2.0"
-LABEL description="OpenClaw Wake Bot - Fixed codespace start command"
+# 安装 GitHub CLI 和必要依赖
+RUN apk add --no-cache \
+    curl \
+    git \
+    bash \
+    openssh-client
 
 # 安装 GitHub CLI
-RUN apk add --no-cache curl git bash jq
-
-# 安装 GitHub CLI (gh)
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg 2>/dev/null || true && \
-    echo "@github https://cli.github.com/packages stable main" >> /etc/apk/repositories && \
-    apk add --no-cache gh
+RUN curl -fsSL https://github.com/cli/cli/releases/download/v2.42.0/gh_2.42.0_linux_amd64.tar.gz -o gh.tar.gz && \
+    tar -xzf gh.tar.gz && \
+    mv gh_2.42.0_linux_amd64/bin/gh /usr/local/bin/ && \
+    rm -rf gh.tar.gz gh_2.42.0_linux_amd64
 
 WORKDIR /app
 
-# 复制 package.json
+# 复制依赖文件
 COPY package*.json ./
 RUN npm install
 
@@ -24,5 +25,5 @@ COPY . .
 # 暴露端口
 EXPOSE 3000
 
-# 启动应用
+# 启动命令
 CMD ["node", "bot.js"]
